@@ -1,13 +1,15 @@
 package com.done.datamap.entity;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
+
+
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
 @Immutable
-public class ViewConsulta {
+public class ViewReport {
     @Id
     private Integer id;
     private String nombre_completo;
