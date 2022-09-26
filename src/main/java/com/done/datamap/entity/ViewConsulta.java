@@ -10,8 +10,9 @@ import javax.persistence.Id;
 public class ViewConsulta {
     @Id
     private Integer id;
-    private String origen;
-    private String created_at;
+    private String nombre_completo;
+    private String codigo;
+    private String categoria;
 
     public Integer getId() {
         return id;
@@ -21,21 +22,27 @@ public class ViewConsulta {
         this.id = id;
     }
 
-    public String getOrigen() {
-        return origen;
+    public String getNombre_completo() {
+        return nombre_completo;
     }
 
-    public void setOrigen(String origen) {
-        this.origen = origen;
+    public void setNombre_completo(String origen) {
+        this.nombre_completo = origen;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setCodigo(String created_at) {
+        this.codigo = created_at;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
 
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 }
