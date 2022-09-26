@@ -7,18 +7,23 @@ import net.sf.jasperreports.engine.json.expression.member.ObjectKeyExpression;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 
 import javax.swing.text.View;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,11 +42,17 @@ public class ViewReportService {
     @NotNull
     public ResponseEntity<Resource> exportPDFById(Integer id){
         Optional<ViewReport> optViewReport = this.viewReportRepository.exportPDFById(id);
+        //ClassPathResource cpr= new  ClassPathResource( "jreport1.jasper" ) ;
         if(optViewReport.isPresent()){
             try {
                 final ViewReport viewReport = optViewReport.get();
-                final File file = ResourceUtils.getFile("classpath:jreport1.jasper");
-                final JasperReport report = (JasperReport) JRLoader.loadObject(file);
+                //final File file = ResourceUtils.getFile("classpath:jreport1.jasper");
+
+                //BufferedReader lector = new BufferedReader(new InputStreamReader(cpr.getInputStream()));
+                //FileCopyUtils.copyToString(lector);
+                //final JasperReport report = (JasperReport) JRLoader.loadObject(file);
+                //final JasperReport report = (JasperReport)JRLoader.loadObject(getClass().getResource("/com/done/datamap/rpt/jreport1.jasper"));
+                InputStream report = this.getClass().getClassLoader().getResourceAsStream("jreport1.jasper");
                 final HashMap<String, Object> parameters = new HashMap<>();
                 parameters.put("nombre_completo", viewReport.getNombre_completo());
 
