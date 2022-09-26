@@ -42,16 +42,9 @@ public class ViewReportService {
     @NotNull
     public ResponseEntity<Resource> exportPDFById(Integer id){
         Optional<ViewReport> optViewReport = this.viewReportRepository.exportPDFById(id);
-        //ClassPathResource cpr= new  ClassPathResource( "jreport1.jasper" ) ;
         if(optViewReport.isPresent()){
             try {
                 final ViewReport viewReport = optViewReport.get();
-                //final File file = ResourceUtils.getFile("classpath:jreport1.jasper");
-
-                //BufferedReader lector = new BufferedReader(new InputStreamReader(cpr.getInputStream()));
-                //FileCopyUtils.copyToString(lector);
-                //final JasperReport report = (JasperReport) JRLoader.loadObject(file);
-                //final JasperReport report = (JasperReport)JRLoader.loadObject(getClass().getResource("/com/done/datamap/rpt/jreport1.jasper"));
                 InputStream report = this.getClass().getClassLoader().getResourceAsStream("jreport1.jasper");
                 final HashMap<String, Object> parameters = new HashMap<>();
                 parameters.put("nombre_completo", viewReport.getNombre_completo());
@@ -75,7 +68,6 @@ public class ViewReportService {
             }catch (Exception e){
                 e.printStackTrace();
             }
-
 
         }
         else{
