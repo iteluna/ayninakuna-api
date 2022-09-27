@@ -3,199 +3,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Simple_Blue" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9028df50-667b-4e6b-bbde-287dcd209652">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="NO_DATA_ADAPTER"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<subDataset name="dsHeader" uuid="4885da9a-f991-4f07-b331-013c325c1092">
-		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="AYNIcentroProd"/>
-		<queryString language="SQL">
-			<![CDATA[SELECT CONCAT(p.nombres,', ', p.apellido_paterno, ' ',p.apellido_materno) AS nombre_completo, p.codigo, p.categoria,
-p.tipo_malformacion, CONCAT(p.lugar_nacimiento_municipio, ' - ', p.lugar_nacimiento_departamento) AS lugar_nacimiento,
-IFNULL(CONCAT(p.patologia_1, '; ', p.patologia_2, ';', p.patologia_3),'') AS patologias, CONCAT(p.direccion, ' - ', p.direccion_municipio) AS direccion,
-'edad' AS edad,
-p.tipo_parto, p.tipo_paciente, p.padre_nombre, p.antecedente_paterno, p.padre_ocupacion, p.padre_telefono,
-p.madre_nombre, p.antecedente_materno, p.madre_ocupacion, p.madre_telefono, NOW() AS fecha_impresion,
-(select e.created_at from enfermerias e where e.paciente_id=p.id order by e.created_at desc limit 1) as efecha,
-(select e.peso from enfermerias e where e.paciente_id=p.id order by e.created_at desc limit 1) as epeso,
-(select e.talla from enfermerias e where e.paciente_id=p.id order by e.created_at desc limit 1) as etalla,
-(select e.temperatura from enfermerias e where e.paciente_id=p.id order by e.created_at desc limit 1) as etemperatura,
-(select f.diagnostico from fonoaudiologias f where f.paciente_id=p.id order by f.created_at desc limit 1) as fdiagnostico,
-(select JSON_EXTRACT(f.sesiones,CONCAT('$[',IFNULL(JSON_LENGTH(f.sesiones) - 1, 0),'].fecha')) from fonoaudiologias f where f.paciente_id=p.id order by f.created_at desc limit 1) as ffecha_sesion,
-(select JSON_EXTRACT(f.sesiones,CONCAT('$[',IFNULL(JSON_LENGTH(f.sesiones) - 1, 0),'].usuario')) from fonoaudiologias f where f.paciente_id=p.id order by f.created_at desc limit 1) as fusuario,
-(select JSON_EXTRACT(f.sesiones,CONCAT('$[',IFNULL(JSON_LENGTH(f.sesiones) - 1, 0),'].descripcion')) from fonoaudiologias f where f.paciente_id=p.id order by f.created_at desc limit 1) as fdescripcion,
-(select o.receta from odontologias o where o.paciente_id=p.id order by o.created_at desc limit 1) as oreceta,
-(select o.tratamiento from odontologias o where o.paciente_id=p.id order by o.created_at desc limit 1) as otratamiento,
-(select o.tipomoldeador from odontologias o where o.paciente_id=p.id order by o.created_at desc limit 1) as otipomoldeador,
-(select o.placas from odontologias o where o.paciente_id=p.id order by o.created_at desc limit 1) as oplacas,
-(select pr.fecha_cirugia from precirugias pr where pr.paciente_id=p.id order by pr.created_at desc limit 1) as prfechacirugia,
-(select pr.procquirurgico from precirugias pr where pr.paciente_id=p.id order by pr.created_at desc limit 1) as prprocquirurgico,
-(select pr.hospital from precirugias pr where pr.paciente_id=p.id order by pr.created_at desc limit 1) as prclinica,
-(select pr.cirujano from precirugias pr where pr.paciente_id=p.id order by pr.created_at desc limit 1) as prcirujano
-FROM pacientes p where p.codigo='HGN080216']]>
-		</queryString>
-		<field name="nombre_completo" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="nombre_completo"/>
-			<property name="com.jaspersoft.studio.field.label" value="nombre_completo"/>
-		</field>
-		<field name="codigo" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="codigo"/>
-			<property name="com.jaspersoft.studio.field.label" value="codigo"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="categoria" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="categoria"/>
-			<property name="com.jaspersoft.studio.field.label" value="categoria"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="tipo_malformacion" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="tipo_malformacion"/>
-			<property name="com.jaspersoft.studio.field.label" value="tipo_malformacion"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="lugar_nacimiento" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="lugar_nacimiento"/>
-			<property name="com.jaspersoft.studio.field.label" value="lugar_nacimiento"/>
-		</field>
-		<field name="patologias" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="patologias"/>
-			<property name="com.jaspersoft.studio.field.label" value="patologias"/>
-		</field>
-		<field name="direccion" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="direccion"/>
-			<property name="com.jaspersoft.studio.field.label" value="direccion"/>
-		</field>
-		<field name="edad" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="edad"/>
-			<property name="com.jaspersoft.studio.field.label" value="edad"/>
-		</field>
-		<field name="tipo_parto" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="tipo_parto"/>
-			<property name="com.jaspersoft.studio.field.label" value="tipo_parto"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="tipo_paciente" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="tipo_paciente"/>
-			<property name="com.jaspersoft.studio.field.label" value="tipo_paciente"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="padre_nombre" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="padre_nombre"/>
-			<property name="com.jaspersoft.studio.field.label" value="padre_nombre"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="antecedente_paterno" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="antecedente_paterno"/>
-			<property name="com.jaspersoft.studio.field.label" value="antecedente_paterno"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="padre_ocupacion" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="padre_ocupacion"/>
-			<property name="com.jaspersoft.studio.field.label" value="padre_ocupacion"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="padre_telefono" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="padre_telefono"/>
-			<property name="com.jaspersoft.studio.field.label" value="padre_telefono"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="madre_nombre" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="madre_nombre"/>
-			<property name="com.jaspersoft.studio.field.label" value="madre_nombre"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="antecedente_materno" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="antecedente_materno"/>
-			<property name="com.jaspersoft.studio.field.label" value="antecedente_materno"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="madre_ocupacion" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="madre_ocupacion"/>
-			<property name="com.jaspersoft.studio.field.label" value="madre_ocupacion"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="madre_telefono" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="madre_telefono"/>
-			<property name="com.jaspersoft.studio.field.label" value="madre_telefono"/>
-			<property name="com.jaspersoft.studio.field.tree.path" value="pacientes"/>
-		</field>
-		<field name="fecha_impresion" class="java.time.LocalDateTime">
-			<property name="com.jaspersoft.studio.field.name" value="fecha_impresion"/>
-			<property name="com.jaspersoft.studio.field.label" value="fecha_impresion"/>
-		</field>
-		<field name="efecha" class="java.sql.Timestamp">
-			<property name="com.jaspersoft.studio.field.name" value="efecha"/>
-			<property name="com.jaspersoft.studio.field.label" value="efecha"/>
-		</field>
-		<field name="epeso" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="epeso"/>
-			<property name="com.jaspersoft.studio.field.label" value="epeso"/>
-		</field>
-		<field name="etalla" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="etalla"/>
-			<property name="com.jaspersoft.studio.field.label" value="etalla"/>
-		</field>
-		<field name="etemperatura" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="etemperatura"/>
-			<property name="com.jaspersoft.studio.field.label" value="etemperatura"/>
-		</field>
-		<field name="fdiagnostico" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="fdiagnostico"/>
-			<property name="com.jaspersoft.studio.field.label" value="fdiagnostico"/>
-		</field>
-		<field name="ffecha_sesion" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="ffecha_sesion"/>
-			<property name="com.jaspersoft.studio.field.label" value="ffecha_sesion"/>
-		</field>
-		<field name="fusuario" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="fusuario"/>
-			<property name="com.jaspersoft.studio.field.label" value="fusuario"/>
-		</field>
-		<field name="fdescripcion" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="fdescripcion"/>
-			<property name="com.jaspersoft.studio.field.label" value="fdescripcion"/>
-		</field>
-		<field name="oreceta" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="oreceta"/>
-			<property name="com.jaspersoft.studio.field.label" value="oreceta"/>
-		</field>
-		<field name="otratamiento" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="otratamiento"/>
-			<property name="com.jaspersoft.studio.field.label" value="otratamiento"/>
-		</field>
-		<field name="otipomoldeador" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="otipomoldeador"/>
-			<property name="com.jaspersoft.studio.field.label" value="otipomoldeador"/>
-		</field>
-		<field name="oplacas" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="oplacas"/>
-			<property name="com.jaspersoft.studio.field.label" value="oplacas"/>
-		</field>
-		<field name="prfechacirugia" class="java.sql.Timestamp">
-			<property name="com.jaspersoft.studio.field.name" value="prfechacirugia"/>
-			<property name="com.jaspersoft.studio.field.label" value="prfechacirugia"/>
-		</field>
-		<field name="prprocquirurgico" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="prprocquirurgico"/>
-			<property name="com.jaspersoft.studio.field.label" value="prprocquirurgico"/>
-		</field>
-		<field name="prclinica" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="prclinica"/>
-			<property name="com.jaspersoft.studio.field.label" value="prclinica"/>
-		</field>
-		<field name="prcirujano" class="java.lang.String">
-			<property name="com.jaspersoft.studio.field.name" value="prcirujano"/>
-			<property name="com.jaspersoft.studio.field.label" value="prcirujano"/>
-		</field>
-	</subDataset>
-	<subDataset name="Dataset1" uuid="401e3d3e-36ba-48fc-89c3-6686ac24c436">
-		<queryString>
-			<![CDATA[]]>
-		</queryString>
-	</subDataset>
-	<subDataset name="Dataset2" uuid="3c289c2f-9383-49b7-9fcb-9562833b2600">
+	<subDataset name="Dataset1" uuid="55fd7fb2-fe5d-4f73-8291-1862606aa80b">
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
 	</subDataset>
 	<parameter name="nombre_completo" class="java.lang.String"/>
+	<parameter name="url_image" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT CONCAT(p.nombres,', ', p.apellido_paterno, ' ',p.apellido_materno) AS nombre_completo, p.codigo, p.categoria,
 p.tipo_malformacion, CONCAT(p.lugar_nacimiento_municipio, ' - ', p.lugar_nacimiento_departamento) AS lugar_nacimiento,
@@ -235,20 +49,10 @@ FROM pacientes p where p.codigo='HGN080216']]>
 					</textElement>
 					<text><![CDATA[EXPEDIENTE]]></text>
 				</staticText>
-				<staticText>
-					<reportElement x="110" y="50" width="100" height="22" uuid="7aa9a3b9-c545-4a7f-afd7-910e45bde411"/>
-					<textElement>
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Nombre Completo:]]></text>
-				</staticText>
-				<textField>
-					<reportElement x="220" y="50" width="140" height="22" uuid="d1257885-95be-4d8c-82d8-75ec49c43b02"/>
-					<textElement>
-						<font isItalic="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$P{nombre_completo}]]></textFieldExpression>
-				</textField>
+				<image>
+					<reportElement x="10" y="20" width="50" height="50" uuid="e01f438e-97b4-4976-a2c6-3c4d5a98f127"/>
+					<imageExpression><![CDATA[$P{url_image}]]></imageExpression>
+				</image>
 			</frame>
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="288" width="555" height="1" uuid="43fbc379-6b82-48ef-9e0d-728ab16fa895"/>
@@ -262,22 +66,6 @@ FROM pacientes p where p.codigo='HGN080216']]>
 			</staticText>
 		</band>
 	</title>
-	<detail>
-		<band height="307">
-			<line>
-				<reportElement x="0" y="9" width="544" height="1" uuid="e9acbdcd-c862-4047-85a9-ae050f7c78de"/>
-			</line>
-			<line>
-				<reportElement x="0" y="12" width="1" height="238" uuid="b14cee57-4827-428e-ac7c-938527da0e8b"/>
-			</line>
-			<line>
-				<reportElement x="278" y="13" width="1" height="238" uuid="82c84037-dc9a-4552-84aa-9b59aad296b9"/>
-			</line>
-			<line>
-				<reportElement x="553" y="10" width="1" height="238" uuid="f1c3fc9f-2540-44ec-bd39-b26f85b2b0d3"/>
-			</line>
-		</band>
-	</detail>
 	<columnFooter>
 		<band/>
 	</columnFooter>

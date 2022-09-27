@@ -3,27 +3,18 @@ package com.done.datamap.service;
 import com.done.datamap.entity.ViewReport;
 import com.done.datamap.repository.ViewReportRepository;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.json.expression.member.ObjectKeyExpression;
-import net.sf.jasperreports.engine.util.JRLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.util.ResourceUtils;
 
-import javax.swing.text.View;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,9 +36,44 @@ public class ViewReportService {
         if(optViewReport.isPresent()){
             try {
                 final ViewReport viewReport = optViewReport.get();
-                InputStream report = this.getClass().getClassLoader().getResourceAsStream("jreport1.jasper");
+                InputStream report = this.getClass().getClassLoader().getResourceAsStream("jreport11.jasper");
                 final HashMap<String, Object> parameters = new HashMap<>();
                 parameters.put("nombre_completo", viewReport.getNombre_completo());
+                parameters.put("edad", viewReport.getEdad());
+                parameters.put("tipo_malformacion", viewReport.getTipo_malformacion());
+                parameters.put("lugar_nacimiento", viewReport.getLugar_nacimiento());
+                parameters.put("patologias", viewReport.getPatologias());
+                parameters.put("direccion", viewReport.getDireccion());
+                parameters.put("codigo", viewReport.getCodigo());
+                parameters.put("categoria", viewReport.getCategoria());
+                parameters.put("tipo_parto", viewReport.getTipo_parto());
+                parameters.put("tipo_paiente", viewReport.getTipo_paciente());
+
+                parameters.put("padre_nombre", viewReport.getPadre_nombre());
+                parameters.put("antecente_paterno", viewReport.getAntecedente_paterno());
+                parameters.put("padre_ocupacion", viewReport.getPadre_ocupacion());
+                parameters.put("padre_telefono", viewReport.getPadre_telefono());
+
+                parameters.put("madre_nombre", viewReport.getMadre_nombre());
+                parameters.put("antecedente_materno", viewReport.getAntecedente_materno());
+                parameters.put("madre_ocupacion", viewReport.getMadre_ocupacion());
+                parameters.put("madre_telefono", viewReport.getMadre_telefono());
+
+                parameters.put("prfechacirugia", viewReport.getPrfechacirugia());
+                parameters.put("prprocquirurgico", viewReport.getPrprocquirurgico());
+                parameters.put("prclinica", viewReport.getPrclinica());
+                parameters.put("prcirujano", viewReport.getPrcirujano());
+
+                parameters.put("efecha", viewReport.getEfecha());
+                parameters.put("epeso", viewReport.getEpeso());
+                parameters.put("etalla", viewReport.getEtalla());
+                parameters.put("etemperatura", viewReport.getEtemperatura());
+
+                parameters.put("qdiagnostico", viewReport.getQdiagnostico());
+                parameters.put("qtratamiento", viewReport.getQdiagnostico());
+                parameters.put("qrefereridoa", viewReport.getQreferidoa());
+
+                parameters.put("url_image", viewReport.getFotografia());
 
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
                 byte[] reporte = JasperExportManager.exportReportToPdf(jasperPrint);
