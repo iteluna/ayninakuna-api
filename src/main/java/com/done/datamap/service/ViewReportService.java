@@ -5,6 +5,7 @@ import com.done.datamap.repository.ViewReportRepository;
 import net.sf.jasperreports.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.io.File;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,6 +39,10 @@ public class ViewReportService {
             try {
                 final ViewReport viewReport = optViewReport.get();
                 InputStream report = this.getClass().getClassLoader().getResourceAsStream("jreport11.jasper");
+                Resource resource = new ClassPathResource("ayninakuna.png");
+                InputStream input = resource.getInputStream();
+                File fileImage = resource.getFile();
+
                 final HashMap<String, Object> parameters = new HashMap<>();
                 parameters.put("nombre_completo", viewReport.getNombre_completo());
                 parameters.put("edad", viewReport.getEdad());
@@ -74,6 +80,9 @@ public class ViewReportService {
                 parameters.put("qrefereridoa", viewReport.getQreferidoa());
 
                 parameters.put("url_image", viewReport.getFotografia());
+                parameters.put("url_logo", fileImage.getAbsolutePath());
+                //parameters.put("url_logo", "https://api.ayninakuna.org/public/pacientes_fotos/ayninakuna.png");
+
 
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
                 byte[] reporte = JasperExportManager.exportReportToPdf(jasperPrint);

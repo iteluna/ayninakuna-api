@@ -41,6 +41,7 @@
 	<parameter name="qreferidoa" class="java.lang.String"/>
 	<parameter name="qdiagnostico" class="java.lang.String"/>
 	<parameter name="qtratamiento" class="java.lang.String"/>
+	<parameter name="url_logo" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT CONCAT(p.nombres,', ', p.apellido_paterno, ' ',p.apellido_materno) AS nombre_completo, p.codigo, p.categoria,
 p.tipo_malformacion, CONCAT(p.lugar_nacimiento_municipio, ' - ', p.lugar_nacimiento_departamento) AS lugar_nacimiento,
@@ -235,7 +236,7 @@ FROM pacientes p where p.codigo='HGN080216']]>
 				</staticText>
 				<image>
 					<reportElement x="497" y="14" width="75" height="34" uuid="0750dd6b-bd8b-41b6-aa83-e32d3e5e35e1"/>
-					<imageExpression><![CDATA["/Users/admin/Downloads/ayninakuna.png"]]></imageExpression>
+					<imageExpression><![CDATA[$P{url_logo}]]></imageExpression>
 				</image>
 				<image>
 					<reportElement x="40" y="4" width="59" height="64" uuid="d18475a9-e396-4fef-82dd-c1227d30c9c4"/>
