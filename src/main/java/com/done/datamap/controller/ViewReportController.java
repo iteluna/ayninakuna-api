@@ -4,6 +4,7 @@ import com.done.datamap.service.ViewReportService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,6 +24,12 @@ public class ViewReportController {
 
     @GetMapping("/exportPDFById")
     public ResponseEntity<Resource> exportPDFById(Integer id){
+        return this.viewConsultaService.exportPDFById(id);
+    }
+
+
+    @GetMapping(path = {"/exportPDF", "/exportPDF/{id}"})
+    public ResponseEntity<Resource> exportPDFById2(@PathVariable(required=false,name="id") Integer id){
         return this.viewConsultaService.exportPDFById(id);
     }
 }
