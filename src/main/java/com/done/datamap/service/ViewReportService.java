@@ -45,16 +45,7 @@ public class ViewReportService {
             try {
                 final ViewReport viewReport = optViewReport.get();
                 InputStream report = this.getClass().getClassLoader().getResourceAsStream("jreport11.jasper");
-                //Resource resource = new ClassPathResource("classpath:ayninakuna.png");
-                //InputStream input = resource.getInputStream();
-                //File fileImage = resource.getFile();
-                //Image img = ImageIO.read(getClass().getClassLoader().getResourceAsStream("ayninakuna.png"));
-                //InputStream inputImg = getClass().getClassLoader().getResourceAsStream("ayninakuna.png");
-                //BufferedImage image = ImageIO.read(getClass().getResource("ayninakuna.png"));
-
                 InputStream image= getClass().getClassLoader().getResourceAsStream("ayninakuna.png");
-                //URL url = this.getClass().getClassLoader().getResource("ayninakuna.png");
-                //File fileImage = new File(url.toURI());
 
                 final HashMap<String, Object> parameters = new HashMap<>();
                 parameters.put("nombre_completo", viewReport.getNombre_completo());
@@ -94,9 +85,6 @@ public class ViewReportService {
 
                 parameters.put("url_image", viewReport.getFotografia());
                 parameters.put("url_logo", image);
-                //parameters.put("url_logo", fileImage.getAbsolutePath());
-                //parameters.put("url_logo", "https://api.ayninakuna.org/public/pacientes_fotos/ayninakuna.png");
-
 
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());
                 byte[] reporte = JasperExportManager.exportReportToPdf(jasperPrint);
