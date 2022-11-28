@@ -2,19 +2,24 @@ package com.done.datamap.service;
 
 import com.done.datamap.entity.ViewReport;
 import com.done.datamap.repository.ViewReportRepository;
+import com.lowagie.text.pdf.codec.Base64;
 import net.sf.jasperreports.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -43,9 +48,13 @@ public class ViewReportService {
                 //Resource resource = new ClassPathResource("classpath:ayninakuna.png");
                 //InputStream input = resource.getInputStream();
                 //File fileImage = resource.getFile();
+                //Image img = ImageIO.read(getClass().getClassLoader().getResourceAsStream("ayninakuna.png"));
+                //InputStream inputImg = getClass().getClassLoader().getResourceAsStream("ayninakuna.png");
+                //BufferedImage image = ImageIO.read(getClass().getResource("ayninakuna.png"));
 
-                URL url = this.getClass().getClassLoader().getResource("ayninakuna.png");
-                File fileImage = new File(url.toURI());
+                InputStream image= getClass().getClassLoader().getResourceAsStream("ayninakuna.png");
+                //URL url = this.getClass().getClassLoader().getResource("ayninakuna.png");
+                //File fileImage = new File(url.toURI());
 
                 final HashMap<String, Object> parameters = new HashMap<>();
                 parameters.put("nombre_completo", viewReport.getNombre_completo());
@@ -84,7 +93,8 @@ public class ViewReportService {
                 parameters.put("qrefereridoa", viewReport.getQreferidoa());
 
                 parameters.put("url_image", viewReport.getFotografia());
-                parameters.put("url_logo", fileImage.getAbsolutePath());
+                parameters.put("url_logo", image);
+                //parameters.put("url_logo", fileImage.getAbsolutePath());
                 //parameters.put("url_logo", "https://api.ayninakuna.org/public/pacientes_fotos/ayninakuna.png");
 
 

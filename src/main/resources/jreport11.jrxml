@@ -41,7 +41,7 @@
 	<parameter name="qreferidoa" class="java.lang.String"/>
 	<parameter name="qdiagnostico" class="java.lang.String"/>
 	<parameter name="qtratamiento" class="java.lang.String"/>
-	<parameter name="url_logo" class="java.lang.String"/>
+	<parameter name="url_logo" class="java.io.InputStream"/>
 	<queryString>
 		<![CDATA[SELECT CONCAT(p.nombres,', ', p.apellido_paterno, ' ',p.apellido_materno) AS nombre_completo, p.codigo, p.categoria,
 p.tipo_malformacion, CONCAT(p.lugar_nacimiento_municipio, ' - ', p.lugar_nacimiento_departamento) AS lugar_nacimiento,
