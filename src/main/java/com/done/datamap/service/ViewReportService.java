@@ -17,6 +17,7 @@ import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,9 +40,12 @@ public class ViewReportService {
             try {
                 final ViewReport viewReport = optViewReport.get();
                 InputStream report = this.getClass().getClassLoader().getResourceAsStream("jreport11.jasper");
-                Resource resource = new ClassPathResource("ayninakuna.png");
-                InputStream input = resource.getInputStream();
-                File fileImage = resource.getFile();
+                //Resource resource = new ClassPathResource("classpath:ayninakuna.png");
+                //InputStream input = resource.getInputStream();
+                //File fileImage = resource.getFile();
+
+                URL url = this.getClass().getClassLoader().getResource("ayninakuna.png");
+                File fileImage = new File(url.toURI());
 
                 final HashMap<String, Object> parameters = new HashMap<>();
                 parameters.put("nombre_completo", viewReport.getNombre_completo());
